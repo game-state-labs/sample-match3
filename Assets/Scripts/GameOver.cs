@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using GameStateLabs;
+using GameStateLabs.Common;
 using GameStateLabs.EventProperties;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +39,7 @@ namespace Match3
             
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             var levelLostEvent = new CustomEvent("level_lost", BaseEvent.EventTypes.PlayerAction);
-            levelLostEvent.SetCustomProperty("level_id", levelName);
+            levelLostEvent.SetCustomProperty("level_id",  new StringType(levelName));
             levelLostEvent.Track();
             
             var gold = GSLEvents.PlayerInventory.GetItem("curr_gold");
@@ -62,9 +63,9 @@ namespace Match3
 
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             var levelWinEvent = new CustomEvent("level_won", BaseEvent.EventTypes.PlayerAction);
-            levelWinEvent.SetCustomProperty("level_id", levelName);
-            levelWinEvent.SetCustomProperty("score", score.ToString());
-            levelWinEvent.SetCustomProperty("stars", starCount.ToString());
+            levelWinEvent.SetCustomProperty("level_id", new StringType( levelName));
+            levelWinEvent.SetCustomProperty("score", new FloatType(score));
+            levelWinEvent.SetCustomProperty("stars", new IntType(starCount));
             levelWinEvent.Track();
             
             new AchievementEvent(IAchievementProps.AchievementEventActions.Complete, "first_win", "First win!").Track();

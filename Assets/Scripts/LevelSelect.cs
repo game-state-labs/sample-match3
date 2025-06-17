@@ -20,10 +20,11 @@ namespace Match3
         private void InitGSL()
         {
             var playerProps = GSLEvents.PlayerProperties;
+            playerProps.CustomPlayerId = Guid.NewGuid().ToString();
             playerProps.InstallDate = "2025-01-10";
             playerProps.PlayerUsername = Guid.NewGuid().ToString();
 
-            GSLEvents.Initialize(playerProps);
+            GSLEvents.Initialize(playerProps.CustomPlayerId);
 
             var currency = new Currency("curr_gold", 100)
             {

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820b3faa46264d25bd4f189ec1efcd06, type: 3}
   m_Name: Settings
   m_EditorClassIdentifier: 
-  isDebugMode: 1
-  apiKey: blablabl
-  apiSecret: BLABLABLA
+  isDebugMode: 0
+  apiKey: 
+  apiSecret: 
   localFileForEvents: EventQueue.ndjson
+  endPointUrl: https://webhook-test.com/d1d69aaec4880e20cdfa16b249b74e69
