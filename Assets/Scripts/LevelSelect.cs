@@ -3,6 +3,7 @@ using GameStateLabs;
 using GameStateLabs.EventProperties;
 using GameStateLabs.Items;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 namespace Match3
 {
@@ -24,7 +25,9 @@ namespace Match3
             playerProps.InstallDate = "2025-01-10";
             playerProps.PlayerUsername = Guid.NewGuid().ToString();
 
+            Profiler.BeginSample("GSLSDK.Initialization");
             GSLEvents.Initialize(playerProps.CustomPlayerId);
+            Profiler.EndSample();
 
             var currency = new Currency("curr_gold", 100)
             {
@@ -35,6 +38,8 @@ namespace Match3
         private void Start()
         {
             InitGSL();
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
             for (int i = 0; i < buttons.Length; i++)
             {
                 int score = PlayerPrefs.GetInt(buttons[i].playerPrefKey, 0);
@@ -50,8 +55,10 @@ namespace Match3
         public void OnButtonPress(string levelName)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(levelName);
+            Profiler.BeginSample("GSLSDK.Events");
             new LevelEvent(ILevelProps.LevelEventActions.Start, levelName)
                 .Track();
+            Profiler.EndSample();
         }
     }
 }

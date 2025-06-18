@@ -3,6 +3,7 @@ using GameStateLabs;
 using GameStateLabs.Common;
 using GameStateLabs.EventProperties;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.UI;
 
 namespace Match3
@@ -37,10 +38,12 @@ namespace Match3
                 animator.Play("GameOverShow");
             }
             
+            Profiler.BeginSample("GSLSDK.Events");
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             var levelLostEvent = new CustomEvent("level_lost", BaseEvent.EventTypes.PlayerAction);
             levelLostEvent.SetCustomProperty("level_id",  new StringType(levelName));
             levelLostEvent.Track();
+            Profiler.EndSample();
             
             var gold = GSLEvents.PlayerInventory.GetItem("curr_gold");
             gold.UpdateValue(-10, gold.Value - 10);
@@ -61,15 +64,19 @@ namespace Match3
                 animator.Play("GameOverShow");
             }
 
+            Profiler.BeginSample("GSLSDK.Events");
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             var levelWinEvent = new CustomEvent("level_won", BaseEvent.EventTypes.PlayerAction);
             levelWinEvent.SetCustomProperty("level_id", new StringType( levelName));
             levelWinEvent.SetCustomProperty("score", new FloatType(score));
             levelWinEvent.SetCustomProperty("stars", new IntType(starCount));
             levelWinEvent.Track();
+            Profiler.EndSample();
             
+            Profiler.BeginSample("GSLSDK.Events");
             new AchievementEvent(IAchievementProps.AchievementEventActions.Complete, "first_win", "First win!").Track();
-
+            Profiler.EndSample();
+            
             StartCoroutine(ShowWinCoroutine(starCount));
         }
 
@@ -102,10 +109,12 @@ namespace Match3
 
         public void OnDoneClicked()
         {
+            Profiler.BeginSample("GSLSDK.Events");
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             new LevelEvent(ILevelProps.LevelEventActions.End, levelName).Track();
             var gold = GSLEvents.PlayerInventory.GetItem("curr_gold");
             gold.UpdateValue(10, gold.Value + 10);
+            Profiler.EndSample();
             UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
         }
 
