@@ -1,4 +1,7 @@
-﻿namespace Match3
+﻿using GameStateLabs;
+using GameStateLabs.Common;
+
+namespace Match3
 {
     public class LevelMoves : Level
     {
@@ -21,7 +24,13 @@
         public override void OnMove()
         {
             _movesUsed++;
-
+            
+            var moveEvent = new GslEvent("move player");
+            moveEvent.SetCustomProperty("move used", new IntType(_movesUsed));
+            moveEvent.SetCustomProperty("target score", new IntType(targetScore));
+            moveEvent.SetCustomProperty("moves used", new IntType(_movesUsed));
+            moveEvent.Track();
+            
             hud.SetRemaining(numMoves - _movesUsed);
 
             if (numMoves - _movesUsed != 0) return;

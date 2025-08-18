@@ -9,15 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c018eb3950c448b6a6dd9e3abc2fac93, type: 3}
-  m_Name: RandomEventGeneratorConfig
+  m_Script: {fileID: 11500000, guid: b0e6171836e284aa7b1bea5e9c6b2721, type: 3}
+  m_Name: SessionPropertiesabc
   m_EditorClassIdentifier: 
-  numberOfUsers: 5
-  minInterval: 1
-  maxInterval: 30
-  toGenerate: 1
-  eventNames:
-  - PlayerAction
-  - StateChange
-  - ItemCollected
-  - Attack

@@ -1,13 +1,13 @@
 {
   "dependencies": {
     "com.gamestatelabs.sdk": {
-      "version": "https://github.com/game-state-labs/unity-sdk-v1.git#v0.1.4",
+      "version": "https://github.com/game-state-labs/unity-sdk-v1.git#v0.2.3",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.2.1"
       },
-      "hash": "398b2363f6cfa8b87d9e247afe17b35c540d7629"
+      "hash": "450095320e9c8a869fa2a1a844203fe0836f22ec"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",

@@ -1,10 +1,11 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using GameStateLabs;
 using GameStateLabs.Common;
-using GameStateLabs.EventProperties;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.UI;
+using Event = UnityEngine.Event;
 
 namespace Match3
 {
@@ -40,13 +41,12 @@ namespace Match3
             
             Profiler.BeginSample("GSLSDK.Events");
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            var levelLostEvent = new CustomEvent("level_lost", BaseEvent.EventTypes.PlayerAction);
-            levelLostEvent.SetCustomProperty("level_id",  new StringType(levelName));
+
+            var levelLostDictionary = new Dictionary<string, PrimitiveTypeUnion> { { "level_id", new IntType(2) } };
+            var levelLostEvent = new GslEvent("level_lost", levelLostDictionary);
             levelLostEvent.Track();
             Profiler.EndSample();
             
-            var gold = GSLEvents.PlayerInventory.GetItem("curr_gold");
-            gold.UpdateValue(-10, gold.Value - 10);
         }
 
         public void ShowWin(int score, int starCount)
@@ -66,7 +66,7 @@ namespace Match3
 
             Profiler.BeginSample("GSLSDK.Events");
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            var levelWinEvent = new CustomEvent("level_won", BaseEvent.EventTypes.PlayerAction);
+            var levelWinEvent = new GslEvent("level_won");
             levelWinEvent.SetCustomProperty("level_id", new StringType( levelName));
             levelWinEvent.SetCustomProperty("score", new FloatType(score));
             levelWinEvent.SetCustomProperty("stars", new IntType(starCount));
@@ -74,7 +74,7 @@ namespace Match3
             Profiler.EndSample();
             
             Profiler.BeginSample("GSLSDK.Events");
-            new AchievementEvent(IAchievementProps.AchievementEventActions.Complete, "first_win", "First win!").Track();
+            new GslEvent("level_complete", new Dictionary<string, PrimitiveTypeUnion>() {{"first_win", new StringType("first_win")}}).Track();
             Profiler.EndSample();
             
             StartCoroutine(ShowWinCoroutine(starCount));
@@ -111,9 +111,8 @@ namespace Match3
         {
             Profiler.BeginSample("GSLSDK.Events");
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            new LevelEvent(ILevelProps.LevelEventActions.End, levelName).Track();
-            var gold = GSLEvents.PlayerInventory.GetItem("curr_gold");
-            gold.UpdateValue(10, gold.Value + 10);
+            var levelEvent =  new GslEvent("level_done");
+            levelEvent.SetCustomProperty("level_done", new IntType(1));
             Profiler.EndSample();
             UnityEngine.SceneManagement.SceneManager.LoadScene("LevelSelect");
         }

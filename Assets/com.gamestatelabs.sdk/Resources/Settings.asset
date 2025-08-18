@@ -13,7 +13,15 @@ MonoBehaviour:
   m_Name: Settings
   m_EditorClassIdentifier: 
   isDebugMode: 1
-  apiKey: fasdkfhkasjdhf
-  apiSecret: fhakfhaskdfhsadkfh
+  apiKey: pk_test_shivam-hTV7dxwIAs2Px5D-F5QupEd4V0E6f6Bvhw=
   localFileForEvents: EventQueue.ndjson
-  endPointUrl: https://webhook-test.com/d8ff0ff512e9573d1c579c44e10faaac
+  sessionPropertiesAsset: SessionProperties
+  playerPropertiesAsset: PlayerProperties
+  endPointUrl: https://events.stage.gamestate.ai/ingest
+  networkBatchSizeInKb: 4
+  networkingPulseInSec: 5
+  activateGSL: 1
+  maxFileSizeInMb: 10
+  maxRetryAttempts: 10
+  maxSessionTimeoutInSec: 1800
+  maxSessionTimeoutCheckFrequencyInSec: 60

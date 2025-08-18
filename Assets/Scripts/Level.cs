@@ -58,6 +58,7 @@ namespace Match3
 
             if (_didWin)
             {
+                
                 hud.OnGameWin(currentScore);
             }
             else
