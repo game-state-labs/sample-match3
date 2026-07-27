@@ -43,8 +43,6 @@ namespace Match3
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
 
             var levelLostDictionary = new Dictionary<string, PrimitiveTypeUnion> { { "level_id", new IntType(2) } };
-            var levelLostEvent = new GslEvent("level_lost", levelLostDictionary);
-            levelLostEvent.Track();
             Profiler.EndSample();
             
         }
@@ -68,13 +66,13 @@ namespace Match3
             var levelName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
             var levelWinEvent = new GslEvent("level_won");
             levelWinEvent.SetCustomProperty("level_id", new StringType( levelName));
-            levelWinEvent.SetCustomProperty("score", new FloatType(score));
+            levelWinEvent.SetCustomProperty("score", new FloatType(score*4));
             levelWinEvent.SetCustomProperty("stars", new IntType(starCount));
             levelWinEvent.Track();
             Profiler.EndSample();
             
             Profiler.BeginSample("GSLSDK.Events");
-            new GslEvent("level_complete", new Dictionary<string, PrimitiveTypeUnion>() {{"first_win", new StringType("first_win")}}).Track();
+            // new GslEvent("level_complete", new Dictionary<string, PrimitiveTypeUnion>() {{"first_win", new StringType("first_win")}}).Track();
             Profiler.EndSample();
             
             StartCoroutine(ShowWinCoroutine(starCount));

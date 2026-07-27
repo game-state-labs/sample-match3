@@ -24,4 +24,6 @@ MonoBehaviour:
   maxFileSizeInMb: 10
   maxRetryAttempts: 10
   maxSessionTimeoutInSec: 1800
+  graceSessionExpireInSec: 180
   maxSessionTimeoutCheckFrequencyInSec: 60
+  toSendMetric: 0

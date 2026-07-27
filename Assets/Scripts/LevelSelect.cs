@@ -19,14 +19,7 @@ namespace Match3
 
         private void InitGSL()
         {
-            var playerId = "abc";
-            var playerProps = new PlayerProperties(playerId);
-            playerProps.CustomPlayerId = Guid.NewGuid().ToString();
-            playerProps.InstallDate = "2025-01-10";
-            playerProps.PlayerUsername = Guid.NewGuid().ToString();
-
-            Profiler.BeginSample("GSLSDK.Initialization");
-            GslEvents.Initialize(playerId);
+            GslEvents.Initialize();
             Profiler.EndSample();
         }
 
@@ -50,7 +43,10 @@ namespace Match3
         public void OnButtonPress(string levelName)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(levelName);
-            Profiler.BeginSample("GSLSDK.Events");
+            
+            var levelselected = new GslEvent("level_selected");
+            levelselected.Track();
+
             var gslEvent = new GslEvent("level_start");
             gslEvent.SetCustomProperty("level_name",       new StringType(levelName));
             gslEvent.SetCustomProperty("level_number",     new IntType(10));
@@ -59,16 +55,19 @@ namespace Match3
             gslEvent.SetCustomProperty("difficulty",       new StringType("hard"));
             gslEvent.SetCustomProperty("score",            new IntType(1500));
             gslEvent.SetCustomProperty("coins",            new IntType(320));
-            gslEvent.SetCustomProperty("lives_left",       new IntType(3));
+            gslEvent.SetCustomProperty("lives_left",       new IntType(4));
             gslEvent.SetCustomProperty("powerup_active",   new BoolType(true));
             gslEvent.SetCustomProperty("time_elapsed",     new FloatType(125.7f)); // seconds
             gslEvent.SetCustomProperty("device_model",     new StringType("Pixel 7"));
             gslEvent.SetCustomProperty("os_version",       new StringType("Android 14"));
             gslEvent.SetCustomProperty("network_type",     new StringType("WiFi"));
             gslEvent.SetCustomProperty("country",          new StringType("IN"));
-
             gslEvent.Track();
-            Profiler.EndSample();
+
+            var gslEventBoosted = new GslEvent("score_boosted");
+            gslEventBoosted.Track();
+
+
         }
     }
 }

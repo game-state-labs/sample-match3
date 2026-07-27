@@ -1,0 +1,5 @@
+﻿<Solution>
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="com.gamestatelabs.gsl.Runtime.csproj" />
+  <Project Path="com.gamestatelabs.gsl.Editor.csproj" />
+</Solution>

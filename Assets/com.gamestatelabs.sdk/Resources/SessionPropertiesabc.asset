@@ -11,4 +11,4 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0e6171836e284aa7b1bea5e9c6b2721, type: 3}
   m_Name: SessionPropertiesabc
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: com.gamestatelabs.sdk::GameStateLabs.SessionProperties
